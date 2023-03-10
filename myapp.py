@@ -1,7 +1,9 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 from sqlalchemy import create_engine, text
 
 myapp = Flask(__name__)
+db_string = "mysql+pymysql://oa9tcjva8jey22fvsyyy:pscale_pw_xqrbaQdLMb1DuYQrIz9F7Cr0BuVgw21vOZpVcPnmhiv@ap-south.connect.psdb.cloud/myblogs?charset=utf8mb4"
+engine = create_engine(db_string, connect_args={"ssl": {"ssl_ca": "/etc/ssl/cert.pem"}})
 
 @myapp.route("/")
 def root_html():
@@ -9,7 +11,17 @@ def root_html():
 
 @myapp.route("/blogs.html")
 def blogs_html():
-    return render_template("blogs.html")
+    with engine.connect() as conn:
+        result = conn.execute(text("select * from blogs"))
+    blogs = result.mappings().all()
+    return render_template("blogs.html", blogs=blogs)
+
+@myapp.route("/blogs/<id>")
+def specific_blog(id):
+    with engine.connect() as conn:
+        result = conn.execute(text(f"select * from blogs where ID={id}"))
+        result = dict(result.mappings().all()[0])
+    return result
 
 @myapp.route("/about.html")
 def about_html():

@@ -7,9 +7,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                <a class="nav-link active" aria-current="page" href="blogs.html">Blogs</a>
-                <a class="nav-link" href="about.html">About</a>
+                <a class="nav-link active" aria-current="page" href="{{ url_for('root_html')}}">Home</a>
+                <a class="nav-link active" aria-current="page" href="{{ url_for('blogs_html')}}">Blogs</a>
+                <a class="nav-link" href="{{ url_for('about_html')}}">About</a>
             </div>
         </div>
     </div>

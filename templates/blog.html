@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous"/>
+        <title>Blog Post</title>
+    </head>
+    <body>
+        <header>
+            {% include 'nav.html' %}
+        </header>
+        <main class="container pt-2">
+            <h1 class="h1 py-2">You're vieweing a Blog with ID: {{blog['ID']}}</h1>
+            <p class="lead">{{blog["Info"]}}</p>
+            <div class="row text-center pt-2">
+                <div class="col-4"><p class="lead">Author: <b>{{blog['Author']}}</b></p></div>
+                <div class="col-4"><p class="lead">Email: <b>{{blog['Author_Email']}}</b></p></div>
+                {% if blog['Author_Contact'] %}
+                <div class="col-4"><p class="lead">Contact: {{blog['Author_Contact']}}</p></div>
+                {% else %}
+                <div class="col-4"><p class="lead">Contact: None Provided</p></div>
+                {% endif %}
+            </div>
+        </main>
+        <footer>
+            {% include 'foo.html' %}
+        </footer>
+    </body>
+</html>

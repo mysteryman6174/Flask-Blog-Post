@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from sqlalchemy import create_engine, text
 
 myapp = Flask(__name__)
@@ -21,7 +21,7 @@ def specific_blog(id):
     with engine.connect() as conn:
         result = conn.execute(text(f"select * from blogs where ID={id}"))
         result = dict(result.mappings().all()[0])
-    return result
+    return render_template('blog.html', blog= result)
 
 @myapp.route("/about.html")
 def about_html():
